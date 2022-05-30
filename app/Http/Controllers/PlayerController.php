@@ -1,8 +1,9 @@
 <?php
-
+/*
 namespace App\Http\Controllers;
 
-use App\Models\Player;
+
+use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -16,9 +17,11 @@ class PlayerController extends Controller
     public function index()
     {
         $player = Player::all();
+        //$user = User::all();
         return response()->json([
             'status' =>200,
             'player'=> $player,
+            //'user'=> $user,
         ]);
     }
 
@@ -30,12 +33,15 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required',
-            'nickname' => '',
+        
+        $newPlayer = new Player();
+        $newPlayer->user_id = $request->user_id; // $this user_id?
+        $newPlayer->nickname = $request->nickname;
+        $newPlayer->save();
+        return response()->json([
+            'status' =>200,
+            'player'=> $newPlayer,  
         ]);
-
-        return Player::create($request->all());
     }
 
     /**
@@ -44,9 +50,9 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( $user_id)
     {
-        return Player::find($id);
+        return Player::find($user_id);
     }
 
     /**
@@ -56,21 +62,20 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $player = Player::find($id);
-        $player -> update($request->all());
-        return $player;
+    public function update(Request $request, $user_id)
+    {   
+       
+        
+        $player = Player::find($user_id);
+        $player->nickname = $request->nickname; 
+
+        // "message": "SQLSTATE[42S22]: Column not found: 
+        //1054 Unknown column 'players.id' in 'where clause' 
+        //(SQL: select * from `players` where `players`.`id` = 1 limit 1)",
+  
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }
+*/

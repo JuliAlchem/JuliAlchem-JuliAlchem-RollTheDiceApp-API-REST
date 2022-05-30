@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('players', function (Blueprint $table) {
-            $table->id(); // Delete?
-            $table->unsignedBigInteger("user_id")->unique();
-            $table->foreign("user_id")->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('nickname')->default('Anonymous'); // ??  index ??
+        Schema::create('games', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
+            $table->unsignedBigInteger("user_id");
+            $table->foreign("user_id")->references('id')->on('users');
+            $table->integer('die1');
+            $table->integer('die2');
+            $table->enum('result', ['win','lose']); // int?u
+
+           
         });
     }
 
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('players');
+        Schema::dropIfExists('games');
     }
 };

@@ -6,18 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class Player extends Model
+class Game extends Model
 {
     use HasFactory;
-
+    
+    protected $table = 'games';
     protected $fillable = [
         'user_id',
-        'nickname' => 'Anonymous',
+        'die1',
+        'die2',
+        'result',
     ];
-    
-    protected $with = ['user'];
+
+    // 1:many
     public function user(){
         
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 }

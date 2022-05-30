@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Player;
+use App\Models\Game;
 
 class User extends Authenticatable
 {
@@ -47,5 +48,11 @@ class User extends Authenticatable
     public function player(){
         
         return $this->hasOne(Player::class);
+    }
+
+    // 1:many
+    public function games(){
+        
+        return $this->hasMany(Game::class);
     }
 }
