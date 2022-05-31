@@ -14,13 +14,13 @@ class GameController extends Controller
      */
     public function index()
     {
-        //$user = User::all();
-        $game = Game::all();
+         
+       $game = Game::all();
         
         return response()->json([
             'status' =>200,
             'game'=> $game,
-            //'user'=> $user,
+            
         ]);
     }
 
@@ -30,13 +30,11 @@ class GameController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-
-        
+    public function store(Request $request, $id)
+    {   
         $newGame = new Game();
 
-        $newGame->user_id = $request->user_id;
+        $newGame->user_id = $id;
         $newGame->die1 = $request->die1; 
         $newGame->die2 = $request->die2;
         

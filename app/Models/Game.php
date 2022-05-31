@@ -12,7 +12,7 @@ class Game extends Model
     
     protected $table = 'games';
     protected $fillable = [
-        'user_id',
+        
         'die1',
         'die2',
         'result',
